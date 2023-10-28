@@ -495,51 +495,59 @@ int main(int argc, char** argv) {
 							system("cls");
 							break;
 						case 2:
-							std::cout << "Ingrese la cuenta a la cual le desea consignar..." << std::endl;
-							std::cin >> nCuenta;
-							for (std::list<Cuenta>::iterator it = listaCuentas.begin(); it != listaCuentas.end(); ++it) {
-        						Cuenta& elemento = *it; 
-								if(elemento.numeroCuenta == nCuenta){
-									cuentaEncontrada = true;
-									std::cout << "La cuenta tiene un saldo de "<< elemento.saldo << std::endl;
-									std::cout << "Ingrese el valor de la consignacion: " << std::endl;
-									std::cin >> valorConsignacion;
-									elemento.saldo += valorConsignacion;
-									std::cout << "Se le ha consignado el dinero correctamente a la cuenta " << nCuenta << std::endl;
-									std::cout << "La cuenta quedo con un saldo de: "<< elemento.saldo << std::endl;
-									break;
+							if(!listaOperaciones.empty()){
+								std::cout << "Ingrese la cuenta a la cual le desea consignar..." << std::endl;
+								std::cin >> nCuenta;
+								for (std::list<Cuenta>::iterator it = listaCuentas.begin(); it != listaCuentas.end(); ++it) {
+	        						Cuenta& elemento = *it; 
+									if(elemento.numeroCuenta == nCuenta){
+										cuentaEncontrada = true;
+										std::cout << "La cuenta tiene un saldo de "<< elemento.saldo << std::endl;
+										std::cout << "Ingrese el valor de la consignacion: " << std::endl;
+										std::cin >> valorConsignacion;
+										elemento.saldo += valorConsignacion;
+										std::cout << "Se le ha consignado el dinero correctamente a la cuenta " << nCuenta << std::endl;
+										std::cout << "La cuenta quedo con un saldo de: "<< elemento.saldo << std::endl;
+										break;
+									}
 								}
+								if (!cuentaEncontrada) {
+	        						std::cout << "Numero de cuenta no encontrada." << std::endl;
+	    						}
+							}else{
+								std::cout << "Primero debes ingresar una operacion al sistema para poder consignar dinero..." << std::endl;	
 							}
-							if (!cuentaEncontrada) {
-        						std::cout << "Numero de cuenta no encontrada." << std::endl;
-    						}
 							system("PAUSE"); 
 							system("cls");
 							break;
 						case 3:
-							std::cout << "Ingrese su numero de cuenta para retirar..." << std::endl;
-							std::cin >> nCuentaRetirar;
-							for (std::list<Cuenta>::iterator it = listaCuentas.begin(); it != listaCuentas.end(); ++it) {
-        						Cuenta& elemento = *it; 
-								if(elemento.numeroCuenta == nCuentaRetirar){
-									cuentaEncontrada = true;
-									std::cout << "En su cuenta bancaria tiene disponible "<<elemento.saldo <<" cuanto desea retirar?" << std::endl;
-									std::cout << "Ingrese el valor que desea retirar..." << std::endl;
-									std::cin >> valorRetiro;
-									if(valorRetiro < elemento.saldo){
-										elemento.saldo -= valorRetiro;
-										std::cout << "Se ha retirado el dinero correctamente" << nCuenta << std::endl;
-										std::cout << "Saldo disponible: "<<elemento.saldo << nCuenta << std::endl;
-									}else{
-										std::cout << "No tienes fondos suficientes para retirar esa cantidad de dinero..." << nCuenta << std::endl;
-										std::cout << "Saldo disponible: "<<elemento.saldo << nCuenta << std::endl;
+							if(!listaOperaciones.empty()){
+								std::cout << "Ingrese su numero de cuenta para retirar..." << std::endl;
+								std::cin >> nCuentaRetirar;
+								for (std::list<Cuenta>::iterator it = listaCuentas.begin(); it != listaCuentas.end(); ++it) {
+	        						Cuenta& elemento = *it; 
+									if(elemento.numeroCuenta == nCuentaRetirar){
+										cuentaEncontrada = true;
+										std::cout << "En su cuenta bancaria tiene disponible "<<elemento.saldo <<" cuanto desea retirar?" << std::endl;
+										std::cout << "Ingrese el valor que desea retirar..." << std::endl;
+										std::cin >> valorRetiro;
+										if(valorRetiro < elemento.saldo){
+											elemento.saldo -= valorRetiro;
+											std::cout << "Se ha retirado el dinero correctamente" << nCuenta << std::endl;
+											std::cout << "Saldo disponible: "<<elemento.saldo << nCuenta << std::endl;
+										}else{
+											std::cout << "No tienes fondos suficientes para retirar esa cantidad de dinero..." << nCuenta << std::endl;
+											std::cout << "Saldo disponible: "<<elemento.saldo << nCuenta << std::endl;
+										}
+										break;
 									}
-									break;
 								}
+								if (!cuentaEncontrada) {
+	        						std::cout << "Numero de cuenta no encontrada." << std::endl;
+	    						}
+							}else{
+								std::cout << "Primero debes ingresar una operacion al sistema para poder retirar dinero..." << std::endl;	
 							}
-							if (!cuentaEncontrada) {
-        						std::cout << "Numero de cuenta no encontrada." << std::endl;
-    						}
 							system("PAUSE"); 
 							system("cls");
 							break;
